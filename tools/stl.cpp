@@ -136,7 +136,8 @@ void Import_STL(const char * aFileName, Mesh * aMesh)
     aMesh->mVertices.push_back(Vector3(p[0], p[1], p[2]));
   }
 
-  vtkIdType *vertices, nVertices;
+  const vtkIdType *vertices;
+  vtkIdType nVertices;
   mesh->BuildCells();
   for (int i = 0; i < mesh->GetNumberOfCells(); i++) {
     mesh->GetCellPoints(i, nVertices, vertices);
