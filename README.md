@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/valette/OpenCTM.png)](https://travis-ci.org/valette/OpenCTM)
+
 1. INTRODUCTION
 ===============
 
