@@ -70,6 +70,8 @@ void ImportMesh(const char * aFileName, Mesh * aMesh)
     Import_WRL(aFileName, aMesh);
   else if(fileExt == string(".VTK"))
     Import_VTK(aFileName, aMesh);
+  else if(fileExt == string(".VTP"))
+    Import_VTP(aFileName, aMesh);
   else
     throw runtime_error("Unknown input file extension.");
 }

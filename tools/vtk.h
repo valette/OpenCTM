@@ -17,19 +17,12 @@
 #include <vtkPointData.h>
 #include <vtkPolyData.h>
 #include <vtkPolyDataReader.h>
+#include <vtkXMLPolyDataReader.h>
 
-/// Import a VTK file from a file.
-void Import_VTK(const char * aFileName, Mesh * aMesh) {
+void Import_PolyData(vtkPolyData *mesh, Mesh * aMesh) {
+
   // Clear the mesh
   aMesh->Clear();
-
-  // Open the VTK file
-  vtkPolyDataReader *reader = vtkPolyDataReader::New();
-  reader->SetFileName(aFileName);
-  reader->Update();
-
-  vtkPolyData *mesh = reader->GetOutput();
-
   int faceCount = mesh->GetNumberOfCells();
   int vertexCount = mesh->GetNumberOfPoints();
 
@@ -62,10 +55,37 @@ void Import_VTK(const char * aFileName, Mesh * aMesh) {
 
 
 }
+
+/// Import a VTK file from a file.
+void Import_VTK(const char * aFileName, Mesh * aMesh) {
+
+  // Open the VTK file
+  vtkPolyDataReader *reader = vtkPolyDataReader::New();
+  reader->SetFileName(aFileName);
+  reader->Update();
+  Import_PolyData( reader->GetOutput(), aMesh );
+}
+
+/// Import a VTP file from a file.
+void Import_VTP(const char * aFileName, Mesh * aMesh) {
+
+  // Open the VTK file
+  vtkXMLPolyDataReader *reader = vtkXMLPolyDataReader::New();
+  reader->SetFileName(aFileName);
+  reader->Update();
+  Import_PolyData( reader->GetOutput(), aMesh );
+}
+
 #else
 
 /// Import a VTK file from a file.
 void Import_VTK(const char * aFileName, Mesh * aMesh) {
+	std::cout << "error : vtk is not included in this library" << std::endl;
+	exit(1);
+}
+
+/// Import a VTP file from a file.
+void Import_VTP(const char * aFileName, Mesh * aMesh) {
 	std::cout << "error : vtk is not included in this library" << std::endl;
 	exit(1);
 }
