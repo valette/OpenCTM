@@ -37,6 +37,7 @@ void Import_PolyData(vtkPolyData *mesh, Mesh * aMesh) {
   mesh->BuildCells();
   for (int i = 0; i < mesh->GetNumberOfCells(); i++) {
     mesh->GetCellPoints(i, nVertices, vertices);
+    if ( nVertices != 3 ) continue;
     for (int j = 0; j < 3; j++) {
       aMesh->mIndices.push_back(vertices[j]);
     }
